@@ -1,0 +1,114 @@
+create database hospital2;
+
+use hospital2;
+
+create table Convenio (
+    nome varchar(45) not null,
+    numeroCarteira varchar(45) not null,
+    cnpj varchar(18) not null,
+    dataFimCarencia timestamp not null,
+    id int not null primary key auto_increment
+);
+    
+create table Paciente (
+    nome varchar(45) not null,
+    dataNascimento date not null,
+    endereco varchar(200) not null,
+    telefone varchar(11) not null,
+    email varchar(60) not null,
+    cpf varchar(14) not null,
+    rg varchar(12) not null,
+    idConvenio_Paciente int,
+    id int not null primary key auto_increment,
+    constraint fk_convenio_paciente foreign key (idConvenio_Paciente) references Convenio (id)
+);
+
+create table Tipo_Quarto (
+	nome varchar(20) not null,
+    valorDiaria decimal(9,2) not null,
+    descricao varchar(200) not null,
+    id int not null primary key auto_increment
+);
+
+create table Quarto (
+	numero int not null,
+    tipo int not null,
+    constraint fk_quarto foreign key (tipo) references Tipo_Quarto (id), 
+	id int not null primary key auto_increment
+);
+
+create table Especialidade_Medico (
+	nome varchar(45) not null,
+    id int not null primary key auto_increment
+);
+
+create table Medico (
+	nome varchar(45) not null,
+    tipo varchar(45) not null,
+    especialidade int not null,
+    constraint fk_especialidade foreign key (especialidade) references Especialidade_Medico (id),
+    id int not null primary key auto_increment
+);
+    
+create table Receita_Consulta_Medica (
+	nome varchar(45) not null,
+    quantidade int not null,
+    instrucaoUso varchar(200) not null,
+    id int not null primary key auto_increment
+);
+
+create table Consulta_Medica (
+	dataRealizacao timestamp not null,
+    valor decimal(9,2) not null,
+    especialidadeBuscada varchar(200) not null,
+    idMedico int not null,
+    idPaciente int not null,
+    idReceita int not null,
+    idConvenio_Consulta int,
+    id int not null primary key auto_increment,
+    constraint fk_medico foreign key (idMedico) references Medico (id),
+    constraint fk_convenio_consulta foreign key (idConvenio_Consulta) references Convenio (id),
+    constraint fk_paciente foreign key (idPaciente) references Paciente (id),
+    constraint fk_receita foreign key (idReceita) references Receita_Consulta_Medica (id)
+);
+
+create table Enfermeiro (
+	nome varchar(45) not null,
+    cre varchar(45) not null,
+    cpf varchar(14) not null,
+    id int not null primary key auto_increment
+);
+
+create table Internacao (
+	dataEntrada timestamp not null,
+    dataPrevSaida timestamp not null,
+    dataAlta timestamp not null,
+	procedimento varchar(200) not null,
+    id int not null primary key auto_increment,
+    idQuarto int not null,
+    idPaciente int not null,
+    idMedico int not null,
+    constraint fk_quarto_internacao foreign key (idQuarto) references Quarto (id),
+    constraint fk_paciente_internacao foreign key (idPaciente) references Paciente (id),
+    constraint fk_medico_internacao foreign key (idMedico) references Medico (id)
+);
+
+create table Enfermeiros_Em_Uma_Internacao (
+	idEnfermeiro int not null,
+    idInternacao int not null,
+    constraint fk_enfermeiro_internacao foreign key (idEnfermeiro) references Enfermeiro (id),
+    constraint fk_internacao foreign key (idInternacao) references Internacao (id),
+	id int not null primary key auto_increment
+);
+
+/* Quando tava planejando, não incluí a tabela Receitas_em_uma_Consulta (nao confunda com Receita_em_uma_Consulta, no singular), então eu vou incluir agora e modificar a tabela Consulta_Medica*/
+
+create table Receitas_em_uma_Consulta (
+	idConsulta int not null,
+    idReceita int not null,
+    constraint fk_consulta_da_receita foreign key (idConsulta) references Consulta_Medica (id),
+    constraint fk_receita_da_consulta foreign key (idReceita) references Receita_Consulta_Medica (id)
+);
+
+alter table Consulta_Medica drop foreign key fk_receita;
+alter table Consulta_Medica drop column idReceita;

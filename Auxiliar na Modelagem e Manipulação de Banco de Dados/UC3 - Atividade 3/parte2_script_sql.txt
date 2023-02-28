@@ -1,0 +1,22 @@
+alter table medico add isAtivo bool not null;
+
+update medico set isAtivo = true;
+update medico set isAtivo = false where id = 1 or id = 2;
+
+select * from medico;
+
+update internacao
+set dataAlta = date_add(dataEntrada, interval 3 day)
+where idQuarto in (select id from Quarto where tipo = 3);
+
+select * from internacao;
+
+update consulta_medica
+set idConvenio_Consulta = null
+where idConvenio_Consulta = (select max(id) from convenio);
+
+update paciente
+set idConvenio_Paciente = null
+where idConvenio_Paciente = (select max(id) from convenio);
+
+delete from convenio where id = 4;
