@@ -7,13 +7,13 @@
 - Planejar o Desenvolvimento de Software
 
 - Desenvolver Algoritmos e Lógica de Programação 
-  *( Portugol - Pseudo Linguagem )
+  *( Portugol - Pseudo Linguagem )*
   
 - Auxiliar na Modelagem e Manipulação de Banco de Dados 
-  *( SQL - Linguagem de Consulta Estruturada )
+  *( SQL - Linguagem de Consulta Estruturada )*
   
 - Auxiliar na Administração de Banco de Dados
-  *( SQL - Linguagem de Consulta Estruturada )
+  *( SQL - Linguagem de Consulta Estruturada )*
   
 
 
