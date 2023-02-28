@@ -1,0 +1,156 @@
+
+** Criação do banco de dados trabalhadores:
+
+use trabalhadores
+
+** Coleção funcionário:
+
+db.funcionarios.insertMany([
+    {nomeFuncionario: 'Sílvio Cortês',
+    telefone: '99 7898-1234',
+    cpf: '84537768061',
+    cargo:{nomeCargo: 'Vendedor',
+      salario: 2500.00,
+      comissao: 10},
+    usuario:{login: 'silvioc',
+      senha: 'sil123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+   {nomeFuncionario: 'Amaro Valadão',
+    telefone: '99 7534-1234',
+    cpf: '03074142057',
+    cargo:{nomeCargo: 'Vendedor',
+      salario: 2500.00,
+      comissao: 10},
+    usuario:{login: 'amarov',
+      senha: 'ama123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+   {nomeFuncionario: 'Marcos Valadão',
+    telefone: '99 7534-7897',
+    cpf: '40967947081',
+    cargo:{nomeCargo: 'Vendedor',
+      salario: 2500.00,
+      comissao: 10},
+    usuario:{login: 'marcosv',
+      senha: 'mar123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+  {nomeFuncionario: 'Domingas Souza Sá',
+    telefone: '99 7534-1234',
+    cpf: '51077408048',
+    cargo:{nomeCargo: 'Supervisor de Vendas',
+      salario: 2800.00,
+      comissao: 10},
+    usuario:{login: 'domingass',
+      senha: 'dom123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+  {nomeFuncionario: 'Marina Frazão',
+    telefone: '99 7589-1854',
+    cpf: '21788502000',
+    cargo:{nomeCargo: 'Gerente',
+      salario: 5000.00,
+      comissao: 0},
+    usuario:{login: 'marinaf',
+      senha: 'mar123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+  {nomeFuncionario: 'Joana Freitas',
+    telefone: '99 7589-7534',
+    cpf: '85690938025',
+    cargo:{nomeCargo: 'Serviços Gerais',
+      salario: 1500.00,
+      comissao: 0},
+    usuario:{login: 'joanaf',
+      senha: 'joa123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+   {nomeFuncionario: 'Aparício Dias',
+    telefone: '99 7514-7884',
+    cpf: '14131448025',
+    cargo:{nomeCargo: 'Serviços Gerais',
+      salario: 1500.00,
+      comissao: 0},
+    usuario:{login: 'apariciod',
+      senha: 'apa123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}},
+   {nomeFuncionario: 'Filomena da Luz',
+    telefone: '99 7584-7884',
+    cpf: '19641782070',
+    cargo:{nomeCargo: 'Estoquista',
+      salario: 2000.00,
+      comissao: 0},
+    usuario:{login: 'filomenal',
+      senha: 'fil123',
+      ultimoLogin: '2022-01-10 10:00:00.0'}
+  }
+  ])
+
+
+** Coleção Cargo:
+
+db.cargo.insertMany([
+  {descricao: 'Gerente',
+    salario: 5000.00,
+    comissao: 0},
+  {descricao: 'Vendedor',
+    salario: 2500.00,
+    comissao: 10},
+  {descricao: 'Serviços Gerais',
+    salario: 1500.00,
+    comissao: 0},
+  {descricao: 'Supervisor de Vendas',
+    salario: 2800.00,
+    comissao: 10},
+  {descricao: 'Estoquista',
+    salario: 2000.00,
+    comissao: 0}
+  ])
+
+** Coleção usuario:
+
+db.usuario.insertMany([
+  {login: 'admin',
+    senha: '12345',
+    ultimoLogin:'2022-01-10 10:00:00'},
+  {login: 'gerencia',
+    senha: '67890',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'dev',
+    senha: '1q2w3e',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'silvioc',
+    senha: 'sil123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'amarov',
+    senha: 'ama123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'marcosv',
+    senha: 'mar123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'domingass',
+    senha: 'dom123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'marinaf',
+    senha: 'mar123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'joanaf',
+    senha: 'joa123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'apariciod',
+    senha: 'apa123',
+    ultimoLogin: '2022-01-10 10:00:00'},
+  {login: 'filomenal',
+    senha: 'fil123',
+    ultimoLogin: '2022-01-10 10:00:00'}
+  ])
+
+** Update na coleção funcionario:
+
+db.funcionarios.updateOne(
+  {"nomeFuncionario":'Sílvio Cortês'},
+  {$set: {"cargo.nomeCargo": "Gerente", "cargo.salario": 5000.00, "cargo.comissao": 0}}
+  )
+
+** Busca de funcionário por nome:
+
+db.funcionarios.find({"nomeFuncionario": "Amaro Valadão"})
+
+** Busca de funcionário por cargo
+
+db.funcionarios.find({"cargo.nomeCargo":"Vendedor"})
